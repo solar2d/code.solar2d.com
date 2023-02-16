@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="generator" content="Hexo 3.8.0">
+  <title>Solar2D Code Exchange</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Solar2D Free Plugin Directory">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Solar2D">
+  <meta property="og:description" content="Solar2D Free Plugin Directory">
+  <meta property="og:image" content="https://solar2d.com/images/logo.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Solar2D">
+  <meta name="twitter:description" content="Solar2D Free Plugin Directory">
+  <meta name="twitter:image" content="https://solar2d.com/images/logo.png">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="https://solar2d.com/images/icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="https://solar2d.com/images/icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="https://solar2d.com/images/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://solar2d.com/images/icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="https://solar2d.com/images/icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="https://solar2d.com/images/icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="https://solar2d.com/images/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="https://solar2d.com/images/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://solar2d.com/images/icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="https://solar2d.com/images/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://solar2d.com/images/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="https://solar2d.com/images/icon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://solar2d.com/images/icon-16x16.png">
+  <link rel="icon" href="images/logo.png" type="image/png">
+
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+<div class="content">
+  <div id="header">
+    <div class="inner">
+      <div class="left">
+        <div class="lr">
+          <img src="images/logo-banner.png" height="145px" alt="Solar2D Logo"/>
+        </div>
+      </div><div class="right">
+      <div class="lr">
+        <h1>Free Code Exchange</h1>
+        <p>
+          <a class="button icon-github" href="https://github.com/solar2d/code.solar2d.com/issues/new?template=new_code_repo.yml&title=Requesting+repo+for+%3Ccode.name%3E" target="_blank"> Add Your Code</a>
+          <a class="button icon-download" href="https://github.com/coronalabs/corona/releases" target="_blank"> Downloads</a>
+          <a class="button support-btn icon-donate" href="#support"> Support</a>
+        </p>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="advantages">
+    <form>
+      <label for="filterInput"></label>
+      <input type="text" id="filterInput" onkeyup="filterResults()" placeholder="Search for names.." name="search">
+    </form>
+
+    <div class="inner" id="codeContainer">
+
+      <div class="point">
+        <h3>Loading...</h3>
+        <p>...</p>
+      </div>
+
+    </div>
+  </div>
+  <div class="support">
+    <a id="support"></a>
+    <div class="inner">
+      <h2>Support the Project</h2>
+      <p>Solar2D development is sponsored by its users. Support the project on <a href="https://github.com/sponsors/shchvova" target="_blank">GitHub Sponsors</a> or <a href="https://patreon.com/shchvova" target="_blank">Patreon</a>.</p>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <div class="links">
+    <a class="icon-facebook" href="https://fb.com/solar2d" target="_blank"></a>
+    <a class="icon-patreon" href="https://patreon.com/shchvova" target="_blank"></a>
+    <a class="icon-github" href="https://github.com/coronalabs/corona" target="_blank"></a>
+  </div>
+  <div class="copyright">
+    Released under the <a href="LICENSE.md" target="_blank">MIT license</a><br/>
+    Copyright © 2023 Solar2D
+  </div>
+</div>
+<div id="popup" onclick="closePopup()">
+  <div id="popup_inner" onclick="event.stopPropagation()">
+    <div class="popup_body" id="popup_body">
+    </div>
+    <button class="close_button" onClick="closePopup()">OK</button>
+    <script>
+      function closePopup() {
+        let el = document.getElementById('popup');
+        el.style.display = 'none';
+      }
+    </script>
+  </div>
+</div>
+</body>
+</html>
+
+<script>
+  let codeArray = [];
+  const input = document.getElementById('filterInput');
+
+  function filterResults() {
+    let filter = input.value.toLowerCase();
+    let container = document.getElementById("codeContainer")
+    let entries = container.getElementsByTagName('div');
+
+    for(let e of entries) {
+      if (e.textContent.toLowerCase().indexOf(filter) > -1) {
+        e.style.display = "";
+      } else {
+        e.style.display = "none";
+      }
+    }
+  }
+  const shuffleArray = arr => arr
+          .map(a => [Math.random(), a])
+          .sort((a, b) => a[0] - b[0])
+          .map(a => a[1]);
+
+  let xar = new XMLHttpRequest();
+  xar.onload = function () {
+    codeArray = JSON.parse(this.responseText).data;
+
+    codeArray = shuffleArray(codeArray)
+
+    let container = document.getElementById("codeContainer")
+
+    for (let child of container.children) {
+      child.remove()
+    }
+
+    for (let c of codeArray) {
+      let e = document.createElement("div")
+      e.className = "point"
+      let title = document.createElement("h3")
+      title.textContent = c.title
+      e.appendChild(title)
+      let description = document.createElement("p")
+
+      const repoStub = c.repo
+      let popupHTML = `
+<h2>${c.title}</h2>
+`
+      if(c.repo.includes("github.com")){ //some legacy repos don't use github(i.e bitbucket)
+        var githubPath = c.repo.split("github.com/")[1]
+        var author = githubPath.split("/")[0]
+        description.textContent = "By:"+author
+        if(!c.legacy){ // most repos are to old for this to be useful
+            popupHTML =popupHTML+`<a href="${c.repo}" target="_blank"><img src="https://img.shields.io/github/release-date/${githubPath}.svg?label=Updated:&style=flat-square&labelColor=808080" alt="Last Update" height="20"></a>`
+        }
+        popupHTML += "  <h3>By:"+author+"</h3>"
+      }else{
+        description.textContent = "Unknown Author"
+      }
+      popupHTML += `<p style="text-align: center;text-decoration: underline;"><a href=${c.repo}>Check out the repo</a><p>`
+      if(c.legacy == true){
+        let legacyIcon = `<img src="./images/legacyIcon.svg" alt="legacy icon" height="20" width="20" />`
+        popupHTML +=`
+        <p>${legacyIcon} Note this repo is from the Legacy Code Exchange<p>
+        `
+        //description.innerHTML = legacyIcon+description.innerHTML //Add icon to show legacy repos
+      }
+
+      e.appendChild(description)
+      e.onclick = function() {
+        let pbd = document.getElementById('popup_body')
+        pbd.innerHTML = popupHTML;
+        let el = document.getElementById('popup');
+        el.style.display = 'block';
+      }
+      container.appendChild(e)
+    }
+
+    input.placeholder = `Filter ${codeArray.length} repos...`
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchValue = urlParams.get('search');
+    if(searchValue) {
+      input.value = searchValue;
+      filterResults();
+    }
+  }
+  xar.open("GET", "code.json")
+  xar.send()
+</script>

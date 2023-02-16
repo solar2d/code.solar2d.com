@@ -1,0 +1,81 @@
+name: Create Repo Request
+
+on:
+  issues:
+    types: labeled
+
+concurrency:
+  group: singleton
+  cancel-in-progress: false
+
+jobs:
+  repo_request:
+    if: github.event.label.name == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Write template instead of checking out whole repo
+        uses: DamianReeves/write-file-action@v1.0
+        with:
+          path: ./new_code_repo.yml
+          write-mode: overwrite
+          contents: |
+            body:
+              - type: textarea
+                id: description
+                attributes:
+                  label: Plugin description
+              - type: input
+                id: publisherId
+                attributes:
+                  label: Desired publisher Id
+              - type: input
+                id: pluginName
+                attributes:
+                  label: Your plugin name
+              - type: checkboxes
+                id: terms
+                attributes:
+                  label: Terms and conditions
+      - uses: stefanbuck/github-issue-parser@v3
+        id: issue-parser
+        with:
+          template-path: ./new_code_repo.yml
+      - name: Check Params
+        run: |
+          if [ -z "${{ steps.issue-parser.outputs.issueparser_code_repo_title }}" ]
+          then
+            echo "Requires title"
+            exit 1
+          fi
+          if [ -z "${{ steps.issue-parser.outputs.issueparser_code_repo_description }}" ]
+          then
+            echo "Requires description"
+            exit 1
+          fi
+          if [ -z "${{ steps.issue-parser.outputs.issueparser_code_repo_link }}" ]
+          then
+            echo "Requires description"
+            exit 1
+          fi
+
+      - name: Add Repo to json
+        run: |
+          set -e
+          ./generate.py "${{ steps.issue-parser.outputs.issueparser_code_repo_title }}" "${{ steps.issue-parser.outputs.issueparser_code_repo_description }}" "${{ steps.issue-parser.outputs.issueparser_code_repo_link }}"
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Added ${{ steps.issue-parser.outputs.issueparser_code_repo_title }} to code repo"
+          add: "docs"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Close Issue
+        uses: peter-evans/close-issue@v2
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          comment: |
+            Done!
+
+            Code repo added to https://code.solar2d.com

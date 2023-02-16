@@ -1,0 +1,41 @@
+name: New Code Repo Request
+description: You developed and want to submit your Code to the Code Exchange
+title: Requesting repo for <code.title>
+assignees:
+  - scottrules44
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Filling out this issue would create a request to add a code repo to the Solar2D Code Exchange to show off to the community
+  - type: input
+    id: codeTitle
+    attributes:
+      label: Code Repo Title
+      description: The title of your code repo
+      placeholder: <code.title>
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Code Repo description
+      placeholder: Describe your code repo in a few words
+    validations:
+      required: true
+  - type: input
+    id: codeRepoLink
+    attributes:
+      label: Code repo link
+      description: The github link of your Code Repository
+      placeholder: https://github.com/user/repoName
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Terms and conditions
+      description: Making sure we are on the same page
+      options:
+        - label: If I receive invitation to the new repo I will read and follow the README in it
+          required: true
