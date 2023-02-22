@@ -95,6 +95,7 @@
     <button class="close_button" onClick="closePopup()">OK</button>
     <script>
       function closePopup() {
+        window.history.replaceState(null, null, "?");
         let el = document.getElementById('popup');
         el.style.display = 'none';
       }
@@ -126,6 +127,9 @@
           .sort((a, b) => a[0] - b[0])
           .map(a => a[1]);
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchValue = urlParams.get('search');
+  const idValue = urlParams.get('id');
   let xar = new XMLHttpRequest();
   xar.onload = function () {
     codeArray = JSON.parse(this.responseText).data;
@@ -169,21 +173,40 @@
         `
         //description.innerHTML = legacyIcon+description.innerHTML //Add icon to show legacy repos
       }
-
+      //Share link
+      console.log(window.location.host)
+      popupHTML +=`
+      Share: <button id="copy-${c.id}" onClick="(function(e){
+        var id = 'input-'+e.target.id.split('-')[1];
+        var copyText = document.getElementById(id);
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+         // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+        // Alert the copied text
+        alert('Copied Link:' + copyText.value);
+      })(arguments[0]);">Copy Link</button><input type="text" value="${window.location.host+"/?id="+c.id}" id="input-${c.id}">
+      `
       e.appendChild(description)
-      e.onclick = function() {
+      function showPopUp() {
         let pbd = document.getElementById('popup_body')
         pbd.innerHTML = popupHTML;
         let el = document.getElementById('popup');
         el.style.display = 'block';
+      }
+      if(idValue && idValue == c.id){
+        showPopUp()
+      }
+      e.onclick = function() {
+        window.history.replaceState(null, null, "?id="+c.id);
+        showPopUp()
       }
       container.appendChild(e)
     }
 
     input.placeholder = `Filter ${codeArray.length} repos...`
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchValue = urlParams.get('search');
+
     if(searchValue) {
       input.value = searchValue;
       filterResults();

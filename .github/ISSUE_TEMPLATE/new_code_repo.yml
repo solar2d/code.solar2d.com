@@ -37,5 +37,5 @@ body:
       label: Terms and conditions
       description: Making sure we are on the same page
       options:
-        - label: If I receive invitation to the new repo I will read and follow the README in it
+        - label: The link you shared is hosted via github and worth share to community
           required: true
