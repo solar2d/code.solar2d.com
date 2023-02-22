@@ -1,6 +1,12 @@
 {
 "data": [
 {
+"description": "AWS Simple Notification Service Library for Solar2D",
+"id": "6605",
+"repo": "https://github.com/scottrules44/SNS-Solar2D",
+"title": "AWS SNS lib"
+},
+{
 "id": "927f",
 "legacy": true,
 "repo": "https://github.com/KrDPNsk/simple_toast",
