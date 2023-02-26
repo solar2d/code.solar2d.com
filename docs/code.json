@@ -1,6 +1,12 @@
 {
 "data": [
 {
+"description": "A Solar2D Lua module for reading and writing binary archive files for storing resources.",
+"id": "568j",
+"repo": "https://github.com/siudesu/BinaryArchive",
+"title": "Binary Archive Module"
+},
+{
 "description": "AWS Simple Notification Service Library for Solar2D",
 "id": "6605",
 "repo": "https://github.com/scottrules44/SNS-Solar2D",
