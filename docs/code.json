@@ -1,6 +1,12 @@
 {
 "data": [
 {
+"description": "Trivia/quiz game template with roguelike elements",
+"id": "89de",
+"repo": "https://github.com/sekodev/OpenBilgi",
+"title": "OpenBilgi - roguelike trivia game"
+},
+{
 "description": "A Solar2D Lua module for reading and writing binary archive files for storing resources.",
 "id": "568j",
 "repo": "https://github.com/siudesu/BinaryArchive",
