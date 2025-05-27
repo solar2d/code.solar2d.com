@@ -1,6 +1,12 @@
 {
 "data": [
 {
+"description": "Hello,\n\nPlease find enclosed the project titled \u201cTower Defense Stronghold / Gate of Heroes.\u201d While the code may not reflect the highest standards in terms of structure or optimization, I am pleased to inform you that the game runs smoothly and is fully functional.\n\nYou are welcome to make any modifications you deem appropriate. Feel free to use either the game engine, the graphical assets, or any part of the project that suits your needs.\n\nAdditionally, there is commented-out code included in the files which can be used to activate a level editor. This may be helpful for further customization or development.\n\nFor context, this project served as my initial introduction to programming. As such, I am aware that the code's readability could benefit from improvements. Should you wish to refine the structure or clarity of the source code, I recommend consulting Gemini or any other assistant proficient in code refactoring.\n\nPlease do not hesitate to reach out if you have any questions or require additional information.",
+"id": "8b5d",
+"repo": "https://github.com/RemiChatBot/Stronghold",
+"title": "Tower Defense full game"
+},
+{
 "description": "Trivia/quiz game template with roguelike elements",
 "id": "89de",
 "repo": "https://github.com/sekodev/OpenBilgi",
